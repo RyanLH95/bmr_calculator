@@ -13,6 +13,6 @@ export function bmrUs() {
               <input type="text" className="box"/>
                 lbs
             </label>
-              </div>
+        </div>
     )
 }
