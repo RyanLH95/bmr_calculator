@@ -1,6 +1,6 @@
-export function bmrUs() {
+export function BmrUs() {
     return (
-        <div className="us-unit">
+        <div className="us-unit hide">
             <h5 className="height">Height</h5>
             <label className="us-height">
               <input type="text" className="box"/>

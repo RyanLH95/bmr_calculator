@@ -1,6 +1,6 @@
-export function bmrMetric() {
+export function BmrMetric() {
     return (
-      <div className="metric-unit">
+      <div className="metric-unit hide">
         <h5 className="height">Height</h5>
         <label class="metric-height">
           <input type="text" className="box"/>
