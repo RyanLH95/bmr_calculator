@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { BmrMetric } from './BmrMetric.jsx'
+import { BmrUs } from './BmrUs.jsx'
 import "./App.css"
 
 export default function App() {
@@ -22,6 +24,10 @@ export default function App() {
               <label className="age-box">
                 <input type="text" className="box"/>
               </label>
+
+              <BmrMetric />
+              <BmrUs />
+              
               <button type="button" className="btn btn-dark calc">Calculate BMR</button>
               <button type="button" className="btn btn-dark clear">Clear</button>
             </div>
