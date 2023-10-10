@@ -62,3 +62,7 @@ button {
 .us-height {
     display: flex;
 }
+
+.hide {
+    display: none;
+}
