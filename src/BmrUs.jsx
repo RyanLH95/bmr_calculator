@@ -1,6 +1,15 @@
 export function BmrUs() {
     return (
-        <div className="us-unit hide">
+      <>
+      <button 
+        type="button" 
+        className="btn btn-dark us" 
+        id="us-btn"
+        onClick={switchBmrUs(true)}
+        >
+        US Units
+        </button>
+        <div className="us-unit hide" id="us-u">
             <h5 className="height">Height</h5>
             <label className="us-height">
               <input type="text" className="box"/>
@@ -14,5 +23,6 @@ export function BmrUs() {
                 lbs
             </label>
         </div>
+      </>
     )
 }

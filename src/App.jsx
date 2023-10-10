@@ -8,7 +8,7 @@ export default function App() {
       <>
       <h1 className="title">BMR Calculator</h1>
         <form className="form">
-          <button type="button" className="btn btn-dark us">US Units</button>
+          <button type="button" className="btn btn-dark us" id="us-btn">US Units</button>
           <button type="button" className="btn btn-dark metric">Metric Units</button>
             <div className="bmr-box">
               <h5>Gender</h5>
