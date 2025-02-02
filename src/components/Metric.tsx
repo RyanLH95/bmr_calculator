@@ -1,38 +1,22 @@
 import React, { useState } from "react";
 
-interface Measurement {
-  height: number
-  weight: number
-  age: number
+type MetricProps = {
+  metricMeasurement: {
+    heightInCentimetres: number;
+    weightInKilos: number;
+    age: number;
+  };
+  setMetricMeasurement: React.Dispatch<
+    React.SetStateAction<{
+      heightInCentimetres: number;
+      weightInKilos: number;
+      age: number;
+    }>
+  >
 }
 
-const Metric = () => {
+const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement }) => {
   const [gender, setGender] = useState(false);
-  const [measurement, setMeasurement] = useState<Measurement>({
-    height: 0,
-    weight: 0,
-    age: 0,
-  })
-
-  const handleNumericInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (/^\d*\.?\d*$/.test(value)) {
-      setMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
-    } else {
-      setMeasurement((prev) => ({ ...prev, [name]: "" }));
-    }
-  }
-
-  /*
-  let calculate = (e: any) => {
-    e.preventDefault();
-
-    if (weight === 0 || height === 0) {
-      alert('A valid number must be entered to proceed with calculation')
-    } else {
-      let result = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-    }
-  } */
 
   return (
     <form className='mt-5'>
@@ -65,8 +49,13 @@ const Metric = () => {
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           placeholder="cm"
           type='text'
-          value={measurement.height || ''}
-          onChange={handleNumericInput}
+          value={metricMeasurement.heightInCentimetres}
+          onChange={(e) => {
+            setMetricMeasurement({
+              ...metricMeasurement,
+              heightInCentimetres: Number(e.target.value)
+            })
+          }}
         />
       </div>
       <div className='flex gap-0'>
@@ -76,8 +65,13 @@ const Metric = () => {
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           placeholder="kg"
           type='number'
-          value={measurement.weight || ''}
-          onChange={handleNumericInput}
+          value={metricMeasurement.weightInKilos}
+          onChange={(e) => {
+            setMetricMeasurement({
+              ...metricMeasurement,
+              weightInKilos: Number(e.target.value)
+            })
+          }}
         />
       </div>
       <div className='flex gap-6'>
@@ -86,8 +80,13 @@ const Metric = () => {
         <input 
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           type='number'
-          value={measurement.age || ''}
-          onChange={handleNumericInput}
+          value={metricMeasurement.age}
+          onChange={(e) => {
+            setMetricMeasurement({
+              ...metricMeasurement,
+              age: Number(e.target.value)
+            })
+          }}
         />
       </div>
     </form>
