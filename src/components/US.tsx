@@ -16,14 +16,14 @@ type USProps = {
       age: number;
     }>
   >
-  handleNumericInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleNumericInput: (e: React.ChangeEvent<HTMLInputElement>, measurementType: "metric" | "us") => void;
 }
 
 const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericInput }) => {
   const [gender, setGender] = useState<boolean>(false);
 
   return (
-    <form className='mt-5'>
+    <div className='mt-5'>
       <div className='flex justify-center gap-10 scale-150'>
         <div className='gap-2'>
           <p className='relative top-2.5 text-xs'>Male</p>
@@ -55,12 +55,13 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
           name='heightFeet'
           placeholder="ft"
           type='text'
-          value={usMeasurement.heightInFeet}
+          value={usMeasurement.heightInFeet || ''}
           onChange={(e) => {
             setUsMeasurement({
               ...usMeasurement,
               heightInFeet: Number(e.target.value)
             })
+            handleNumericInput(e, "us")
           }}
         />
         {/* (Inches) */}
@@ -69,12 +70,13 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
           name='heightInches'
           placeholder="inches"
           type='text'
-          value={usMeasurement.heightInInches}
+          value={usMeasurement.heightInInches || ''}
           onChange={(e) => {
             setUsMeasurement({
               ...usMeasurement,
               heightInInches: Number(e.target.value)
             })
+            handleNumericInput(e, "us")
           }}
         />
       </div>
@@ -86,12 +88,13 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
           name='weight'
           placeholder="lbs"
           type='text'
-          value={usMeasurement.weightInPounds}
+          value={usMeasurement.weightInPounds || ''}
           onChange={(e) => {
             setUsMeasurement({
               ...usMeasurement,
              weightInPounds: Number(e.target.value)
             })
+            handleNumericInput(e, "us")
           }}
         />
       </div>
@@ -102,16 +105,17 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           name='age'
           type='text'
-          value={usMeasurement.age}
+          value={usMeasurement.age || ''}
           onChange={(e) => {
             setUsMeasurement({
               ...usMeasurement,
              age: Number(e.target.value)
             })
+            handleNumericInput(e, "us")
           }}
         />
       </div>
-    </form>
+    </div>
   )
 }
 

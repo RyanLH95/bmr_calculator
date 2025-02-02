@@ -65,17 +65,16 @@ const App = () => {
     };
   };
 
-  const handleNumericInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNumericInput = (e: React.ChangeEvent<HTMLInputElement>,
+    measurementType: "metric" | "us"
+  ) => {
     const { name, value } = e.target;
     if (/^\d*\.?\d*$/.test(value)) {
-      setMetricMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
+      measurementType === "metric" ? 
+      setMetricMeasurement((prev) => ({ ...prev, [name]: Number(value) })) :
+      setUsMeasurement((prev) => ({ ...prev, [name]: Number(value)}))
     } else {
       setMetricMeasurement((prev) => ({ ...prev, [name]: "" }))
-    }
-    
-    if (/^\d*\.?\d*$/.test(value)) {
-      setUsMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
-    } else {
       setUsMeasurement((prev) => ({ ...prev, [name]: "" }))
     }
   };
