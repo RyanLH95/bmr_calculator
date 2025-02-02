@@ -3,53 +3,67 @@ import Metric from './components/Metric';
 import US from './components/US';
 import './App.css'
 
-type Props = {
-  calculate: (e: React.FormEvent) => void;
-}
-
-interface Measurement {
-  // Metric Measurements
-  heightInCm: number,
+ // Metric Measurements
+interface Metric {
+  heightInCentimetres: number,
   weightInKilos: number,
-  // US measurements
-  heightInFeet: number,
-  heightInInches: number,
-  weightInPounds: number,
   age: number
 }
 
-let calculate = (e: any) => {
-  e.preventDefault();
+// US measurements
+interface US {
+  heightInFeet?: number,
+  heightInInches?: number,
+  weightInPounds?: number,
+  age: number
+}
 
-  if (weight === 0 || height === 0) {
-    alert('A valid number must be entered to proceed with calculation')
-  } else {
-    let result = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-  }
-} 
-
-const App = ({ calculate }: Props) => {
+const App = () => {
   const [changeMeasurement, setChangeMeasurement] = useState<boolean>(true);
   const [result, setResult] = useState<string>('')
 
   // Metric measurement state 
-  const [metricMeasurement, setMetricMeasurement] = useState<Measurement>({
-    heightInCm: 0,
+  const [metricMeasurement, setMetricMeasurement] = useState<Metric>({
+    heightInCentimetres: 0,
     weightInKilos: 0,
     age: 0,
-  })
+  });
 
   // US measurement state
-  const [usMeasurement, setUsMeasurement] = useState<Measurement>({
+  const [usMeasurement, setUsMeasurement] = useState<US>({
     heightInFeet: 0,
     heightInInches: 0,
     weightInPounds: 0,
     age: 0
-  })
+  });
 
   const handleChange = () => {
     setChangeMeasurement(!changeMeasurement);
-  }
+  };
+
+  const calculate = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let weight, height, age;
+
+    if (changeMeasurement) {
+      weight = metricMeasurement.weightInKilos;
+      height = metricMeasurement.heightInCentimetres;
+      age = metricMeasurement.age;
+    } else {
+      weight = (usMeasurement.weightInPounds ?? 0);
+      height = (usMeasurement.heightInFeet ?? 0) * 30.48 + (usMeasurement.heightInInches ?? 0) * 2.58;
+      // Could also use "height = usMeasurement.heightInFeet! * 30.48 + usMeasurement.heightInInches! * 2.54;""
+      age = usMeasurement.age
+    }
+
+    if (weight === 0 || height === 0) {
+      alert('A valid number is required for calculation');
+    } else {
+      const result = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+      setResult(result.toFixed(1));
+    };
+  };
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen bg-designColour'>
@@ -75,7 +89,11 @@ const App = ({ calculate }: Props) => {
             </button>
           </div>
           {/* BMR FORM */}
-          {changeMeasurement ? (<Metric {...calculate}/>) : (<US {...calculate}/>)}
+          {changeMeasurement ? (
+            <Metric metricMeasurement={metricMeasurement} setMetricMeasurement={setMetricMeasurement} />
+          ) : (
+            <US usMeasurement={usMeasurement} setUsMeasurement={setUsMeasurement} />
+          )}
         </form>
         <div>
           <p>{result}</p>
