@@ -18,8 +18,10 @@ interface US {
   age: number
 }
 
+type MeasurementType = "metric" | "us"
+
 const App = () => {
-  const [changeMeasurement, setChangeMeasurement] = useState<boolean>(true);
+  const [changeMeasurement, setChangeMeasurement] = useState<MeasurementType>("metric");
   const [result, setResult] = useState<string>('')
 
   // Metric measurement state 
@@ -38,7 +40,7 @@ const App = () => {
   });
 
   const handleChange = () => {
-    setChangeMeasurement(!changeMeasurement);
+    setChangeMeasurement(changeMeasurement);
   };
 
   const calculate = (e: React.FormEvent) => {
@@ -58,7 +60,7 @@ const App = () => {
     }
 
     if (weight === 0 || height === 0) {
-      alert('A valid number is required for calculation');
+      
     } else {
       const result = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
       setResult(result.toFixed(1));
@@ -118,6 +120,7 @@ const App = () => {
           )}
         </form>
         <div>
+          <button className="btn" type="submit">Submit</button>
           <p>{result}</p>
         </div>
       </div>
