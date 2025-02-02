@@ -14,9 +14,10 @@ type MetricProps = {
       age: number;
     }>
   >
+  handleNumericInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement }) => {
+const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement, handleNumericInput }) => {
   const [gender, setGender] = useState(false);
 
   return (
@@ -65,7 +66,7 @@ const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement
         <input 
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           placeholder="kg"
-          type='number'
+          type='text'
           value={metricMeasurement.weightInKilos}
           onChange={(e) => {
             setMetricMeasurement({
@@ -80,7 +81,7 @@ const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement
         <p className='relative top-5'>Age</p>
         <input 
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
-          type='number'
+          type='text'
           value={metricMeasurement.age}
           onChange={(e) => {
             setMetricMeasurement({

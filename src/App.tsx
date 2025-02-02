@@ -12,9 +12,9 @@ interface Metric {
 
 // US measurements
 interface US {
-  heightInFeet?: number,
-  heightInInches?: number,
-  weightInPounds?: number,
+  heightInFeet: number,
+  heightInInches: number,
+  weightInPounds: number,
   age: number
 }
 
@@ -65,6 +65,21 @@ const App = () => {
     };
   };
 
+  const handleNumericInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (/^\d*\.?\d*$/.test(value)) {
+      setMetricMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
+    } else {
+      setMetricMeasurement((prev) => ({ ...prev, [name]: "" }))
+    }
+    
+    if (/^\d*\.?\d*$/.test(value)) {
+      setUsMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
+    } else {
+      setUsMeasurement((prev) => ({ ...prev, [name]: "" }))
+    }
+  };
+
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen bg-designColour'>
       <div className='bg-white shadow-lg rounded p-10 h-4/5 w-2/4 text-center shadow-emerald-300'>
@@ -90,9 +105,17 @@ const App = () => {
           </div>
           {/* BMR FORM */}
           {changeMeasurement ? (
-            <Metric metricMeasurement={metricMeasurement} setMetricMeasurement={setMetricMeasurement} />
+            <Metric 
+              metricMeasurement={metricMeasurement} 
+              setMetricMeasurement={setMetricMeasurement} 
+              handleNumericInput={handleNumericInput}
+            />
           ) : (
-            <US usMeasurement={usMeasurement} setUsMeasurement={setUsMeasurement} />
+            <US 
+              usMeasurement={usMeasurement} 
+              setUsMeasurement={setUsMeasurement} 
+              handleNumericInput={handleNumericInput}
+            />
           )}
         </form>
         <div>

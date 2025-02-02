@@ -16,9 +16,10 @@ type USProps = {
       age: number;
     }>
   >
+  handleNumericInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement }) => {
+const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericInput }) => {
   const [gender, setGender] = useState<boolean>(false);
 
   return (
