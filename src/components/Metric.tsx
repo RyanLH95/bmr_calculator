@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// Type props for metric measurements
 type MetricProps = {
   metricMeasurement: {
     heightInCentimetres: number;

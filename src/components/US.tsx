@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 
-interface Measurement {
-  heightFeet: number
-  heightInches: number
-  weight: number
-  age: number
+// type props for US measurement
+type USProps = {
+  usMeasurement: {
+    heightInFeet: number;
+    heightInInches: number;
+    weightInPounds: number;
+    age: number;
+  };
+  setUsMeasurement: React.Dispatch<
+    React.SetStateAction<{
+      heightInFeet: number;
+      heightInInches: number;
+      weightInPounds: number;
+      age: number;
+    }>
+  >
 }
 
-const US = () => {
+const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement }) => {
   const [gender, setGender] = useState<boolean>(false);
-  const [measurement, setMeasurement] = useState<Measurement>({
-    heightFeet: 0,
-    heightInches: 0,
-    weight: 0,
-    age: 0
-  })
-
-  const handleNumericInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (/^\d*\.?\d*$/.test(value)) {
-      setMeasurement((prev) => ({ ...prev, [name]: Number(value) }));
-    } else {
-      setMeasurement((prev) => ({ ...prev, [name]: "" }));
-    }
-    console.log(Number(""))
-  };
 
   return (
     <form className='mt-5'>
@@ -59,8 +54,13 @@ const US = () => {
           name='heightFeet'
           placeholder="ft"
           type='text'
-          value={measurement.heightFeet || ''}
-          onChange={handleNumericInput}
+          value={usMeasurement.heightInFeet}
+          onChange={(e) => {
+            setUsMeasurement({
+              ...usMeasurement,
+              heightInFeet: Number(e.target.value)
+            })
+          }}
         />
         {/* (Inches) */}
         <input 
@@ -68,8 +68,13 @@ const US = () => {
           name='heightInches'
           placeholder="inches"
           type='text'
-          value={measurement.heightInches || ''}
-          onChange={handleNumericInput}
+          value={usMeasurement.heightInInches}
+          onChange={(e) => {
+            setUsMeasurement({
+              ...usMeasurement,
+              heightInInches: Number(e.target.value)
+            })
+          }}
         />
       </div>
       <div className='flex gap-0'>
@@ -80,8 +85,13 @@ const US = () => {
           name='weight'
           placeholder="lbs"
           type='text'
-          value={measurement.weight || ''}
-          onChange={handleNumericInput}
+          value={usMeasurement.weightInPounds}
+          onChange={(e) => {
+            setUsMeasurement({
+              ...usMeasurement,
+             weightInPounds: Number(e.target.value)
+            })
+          }}
         />
       </div>
       <div className='flex gap-6'>
@@ -91,8 +101,13 @@ const US = () => {
           className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
           name='age'
           type='text'
-          value={measurement.age || ''}
-          onChange={handleNumericInput}
+          value={usMeasurement.age}
+          onChange={(e) => {
+            setUsMeasurement({
+              ...usMeasurement,
+             age: Number(e.target.value)
+            })
+          }}
         />
       </div>
     </form>

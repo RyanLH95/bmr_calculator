@@ -3,7 +3,7 @@ import Metric from './components/Metric';
 import US from './components/US';
 import './App.css'
 
- // Metric Measurements
+// Metric Measurements
 interface Metric {
   heightInCentimetres: number,
   weightInKilos: number,
