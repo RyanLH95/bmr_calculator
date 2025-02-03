@@ -18,7 +18,7 @@ interface US {
   age: number
 }
 
-type MeasurementType = "metric" | "us"
+type MeasurementType = "metric" | "us";
 
 const App = () => {
   const [changeMeasurement, setChangeMeasurement] = useState<MeasurementType>("metric");
@@ -39,8 +39,8 @@ const App = () => {
     age: 0
   });
 
-  const handleChange = () => {
-    setChangeMeasurement(changeMeasurement);
+  const handleChange = (measurementType: "metric" | "us") => {
+    setChangeMeasurement(measurementType);
   };
 
   const calculate = (e: React.FormEvent) => {
@@ -63,7 +63,7 @@ const App = () => {
       
     } else {
       const result = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-      setResult(result.toFixed(1));
+      setResult(result.toFixed(0));
     };
   };
 
@@ -93,31 +93,31 @@ const App = () => {
           <div className='flex gap-10 justify-center mt-5 relative'>
             <button 
               className='bg-blue-100 p-2 rounded active:scale-95'
-              onClick={handleChange}
+              onClick={() => handleChange("metric")}
             >
               Metric
             </button>
             <button 
               className='bg-blue-100 p-2 px-5 rounded active:scale-95' 
-              onClick={handleChange}
+              onClick={() => handleChange("us")}
             >
               US
             </button>
           </div>
           {/* BMR FORM */}
-          {changeMeasurement ? (
+          {changeMeasurement === "metric" ? 
             <Metric 
               metricMeasurement={metricMeasurement} 
               setMetricMeasurement={setMetricMeasurement} 
               handleNumericInput={handleNumericInput}
             />
-          ) : (
+           : 
             <US 
               usMeasurement={usMeasurement} 
               setUsMeasurement={setUsMeasurement} 
               handleNumericInput={handleNumericInput}
             />
-          )}
+          }
         </form>
         <div>
           <button className="btn" type="submit">Submit</button>
