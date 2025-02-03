@@ -18,7 +18,7 @@ type MetricProps = {
 }
 
 const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement, handleNumericInput }) => {
-  const [gender, setGender] = useState(false);
+  const [gender, setGender] = useState<"male" | "female">("male");
 
   return (
     <div className='mt-5'>
@@ -27,28 +27,28 @@ const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement
           <p className='relative top-2.5 text-xs'>Male</p>
           <input 
             name='male'
-            checked={gender === false} 
+            checked={gender === "male"} 
             className='bg-slate-100 border h-10 border-slate-300 cursor-pointer' 
             type='checkbox'
-            onChange={() => setGender(Boolean(false))}
+            onChange={() => setGender("male")}
           />
         </div>
         <div className='gap-2'>
           <p className='relative top-2.5 text-xs'>Female</p>
           <input 
             name='female' 
-            checked={gender === true} 
+            checked={gender === "female"} 
             className='bg-slate-100 border h-10 border-slate-300 cursor-pointer' 
             type='checkbox'
-            onChange={() => setGender(Boolean(true))}
+            onChange={() => setGender("female")}
           />
         </div>
       </div>
-      <div className='flex gap-1'>
+      <div className='flex ml-0.5'>
         {/* HEIGHT INPUT */}
-        <p className='relative top-5'>Height</p>
+        <label className='relative top-5 right-1'>Height</label>
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           placeholder="cm"
           type='text'
           value={metricMeasurement.heightInCentimetres || ''}
@@ -63,9 +63,9 @@ const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement
       </div>
       <div className='flex gap-0'>
         {/* WEIGHT INPUT */}
-        <p className='relative top-5'>Weight</p>
+        <label className='relative top-5 right-0.5'>Weight</label>
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           placeholder="kg"
           type='text'
           value={metricMeasurement.weightInKilos || ''}
@@ -80,9 +80,9 @@ const Metric: React.FC<MetricProps> = ({ metricMeasurement, setMetricMeasurement
       </div>
       <div className='flex gap-6'>
         {/* AGE INPUT */}
-        <p className='relative top-5'>Age</p>
+        <label className='relative top-5'>Age</label>
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           type='text'
           value={metricMeasurement.age || ''}
           onChange={(e) => {

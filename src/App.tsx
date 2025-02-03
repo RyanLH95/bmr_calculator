@@ -81,6 +81,10 @@ const App = () => {
     }
   };
 
+  let reload = () => {
+    window.location.reload();
+  }
+
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen bg-designColour'>
       <div className='bg-white shadow-lg rounded p-10 h-4/5 w-2/4 text-center shadow-emerald-300'>
@@ -120,8 +124,9 @@ const App = () => {
           }
         </form>
         <div>
-          <button className="btn" type="submit">Submit</button>
+          <button onClick={calculate} className="btn" type="submit">Submit</button>
           <p>{result}</p>
+          <button onClick={reload} className="btn" type="submit">Reload</button>
         </div>
       </div>
     </div>

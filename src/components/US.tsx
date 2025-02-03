@@ -46,12 +46,13 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
           />
         </div>
       </div>
-      <div className='flex gap-1'>
+      <div className='w-full'>
         {/* HEIGHT INPUT */}
-        <p className='relative top-5'>Height</p>
+        <div className='flex ml-0.5'>
+        <label className='relative top-5 right-1'>Height</label>
         {/* (feet) */}
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           name='heightFeet'
           placeholder="ft"
           type='text'
@@ -66,7 +67,7 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
         />
         {/* (Inches) */}
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           name='heightInches'
           placeholder="inches"
           type='text'
@@ -79,12 +80,13 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
             handleNumericInput(e, "us")
           }}
         />
+        </div>
       </div>
       <div className='flex gap-0'>
         {/* WEIGHT INPUT */}
-        <p className='relative top-5'>Weight</p>
+        <label className='relative top-5 right-0.5'>Weight</label>
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           name='weight'
           placeholder="lbs"
           type='text'
@@ -100,9 +102,9 @@ const US: React.FC<USProps> = ({ usMeasurement, setUsMeasurement, handleNumericI
       </div>
       <div className='flex gap-6'>
         {/* AGE INPUT */}
-        <p className='relative top-5'>Age</p>
+        <label className='relative top-5'>Age</label>
         <input 
-          className='m-3 bg-slate-100 border w-4/5 h-10 border-slate-300 rounded pl-1' 
+          className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
           name='age'
           type='text'
           value={usMeasurement.age || ''}
