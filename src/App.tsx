@@ -21,6 +21,7 @@ interface US {
 type MeasurementType = "metric" | "us";
 
 const App = () => {
+  // states
   const [changeMeasurement, setChangeMeasurement] = useState<MeasurementType>("metric");
   const [result, setResult] = useState<string | null>('')
   // Metric measurement state 
