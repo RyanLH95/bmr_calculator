@@ -1,7 +1,7 @@
 import React from 'react';
 
 // type props for US measurement
-type USProps = {
+type UsProps = {
   usMeasurement: {
     heightInFeet: number;
     heightInInches: number;
@@ -19,7 +19,7 @@ type USProps = {
   handleNumericInput: (e: React.ChangeEvent<HTMLInputElement>, measurementType: "metric" | "us") => void;
 }
 
-const US: React.FC<USProps> = ({ usMeasurement, handleNumericInput }) => {
+const US: React.FC<UsProps> = ({ usMeasurement, handleNumericInput }) => {
 
   return (
     <div className='mt-5'>

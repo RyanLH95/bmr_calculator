@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Metric from './components/Metric';
 import US from './components/US';
 import './App.css'
+import Result from './components/Result';
 
 // Metric Measurements
 interface Metric {
@@ -18,12 +19,17 @@ interface US {
   age: number
 }
 
+type ResultType = {
+  baseBmr: string,
+  activityLevel: { level: string; adjustedBmr: string}[]
+} | null;
+
 type MeasurementType = "metric" | "us";
 
 const App = () => {
-  // states
   const [changeMeasurement, setChangeMeasurement] = useState<MeasurementType>("metric");
-  const [result, setResult] = useState<string | null>('')
+  const [gender, setGender] = useState<"male" | "female">("male");
+  const [result, setResult] = useState<ResultType>(null)
   // Metric measurement state 
   const [metricMeasurement, setMetricMeasurement] = useState<Metric>({
     heightInCentimetres: 0,
@@ -37,7 +43,14 @@ const App = () => {
     weightInPounds: 0,
     age: 0
   });
-  const [gender, setGender] = useState<"male" | "female">("male");
+
+  const activityMultipliers: Record<string, number> = {
+    "Sendetary:": 1.2,
+    "Lightly active:": 1.375,
+    "Moderately active:": 1.55,
+    "Very active:": 1.725,
+    "Extra active:": 1.9,
+  }
 
   const handleChange = (measurementType: "metric" | "us") => {
     setChangeMeasurement(measurementType);
@@ -65,7 +78,17 @@ const App = () => {
       const bmr = gender === "male"
       ? 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
       : 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-      setResult(bmr.toFixed(0));
+     
+      const activityLevelResults = Object.keys(activityMultipliers).map((level) => {
+        return {
+          level,
+          adjustedBmr: (bmr * activityMultipliers[level as keyof typeof activityMultipliers]).toFixed(0)
+        };
+      });
+      setResult({
+        baseBmr: bmr.toFixed(0),
+        activityLevel: activityLevelResults,
+      });
     };
   };
 
@@ -83,13 +106,9 @@ const App = () => {
     }
   };  
 
-  let reload = () => {
-    window.location.reload();
-  }
-
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen bg-designColour'>
-      <div className='bg-white shadow-lg rounded p-10 h-screen w-5/6 text-center shadow-emerald-300 md:w-2/4'>
+      <div className='bg-white shadow-lg rounded p-10 h-screen w-5/6 text-center shadow-emerald-300 overflow-auto lg:w-2/4'>
         <p className='text-3xl font-bold no-underline text-black'>
           BMR Calculator
         </p>
@@ -132,8 +151,13 @@ const App = () => {
               />
             </div>
           </div>
+          <p className='mt-3'>
+            BMR (Basil Metabolic Rate) is the amount of energy needed while 
+            resting to maintain your current your bodyweight. Enter your height, 
+            weight and age to find out your BMR today.
+          </p>
           {/* BMR FORM */}
-          <div className='mt-10'>
+          <div className='mt-6'>
             {changeMeasurement === "metric" ? 
               <Metric 
                 metricMeasurement={metricMeasurement} 
@@ -150,15 +174,18 @@ const App = () => {
           </div>
         </form>
         <div>
-          <button onClick={calculate} className="btn" type="submit">Submit</button>
+          <button 
+            onClick={calculate} 
+            className='mt-5 bg-blue-100 p-2 px-4 rounded active:scale-95' 
+            type="submit"
+          >
+            Submit
+          </button>
           {result ? (
-            <>
-              <p className='text-black'>
-                <span className='text-green-500 font-bold mr-1'>{result}</span>
-                Kcal per day
-              </p>
-              <button onClick={reload} type="submit">Reload</button>
-            </>
+            <Result 
+              baseBmr={result.baseBmr}
+              activityLevel={result.activityLevel}
+            />
           ): null} 
         </div>
         <p className='mt-10 text-blue-600/100 opacity-70'>Using the Harris-Benedict BMR formula</p>
