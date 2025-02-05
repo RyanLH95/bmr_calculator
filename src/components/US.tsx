@@ -30,7 +30,7 @@ const US: React.FC<USProps> = ({ usMeasurement, handleNumericInput }) => {
         {/* (feet) */}
         <input 
           className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
-          name='heightFeet'
+          name='heightInFeet'
           placeholder="ft"
           type='text'
           value={usMeasurement.heightInFeet || ''}
@@ -39,7 +39,7 @@ const US: React.FC<USProps> = ({ usMeasurement, handleNumericInput }) => {
         {/* (Inches) */}
         <input 
           className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
-          name='heightInches'
+          name='heightInInches'
           placeholder="inches"
           type='text'
           value={usMeasurement.heightInInches || ''}
@@ -52,7 +52,7 @@ const US: React.FC<USProps> = ({ usMeasurement, handleNumericInput }) => {
         <label className='relative top-5 right-0.5'>Weight</label>
         <input 
           className='m-3 bg-slate-100 border w-full h-10 border-slate-300 rounded pl-1' 
-          name='weight'
+          name='weightInPounds'
           placeholder="lbs"
           type='text'
           value={usMeasurement.weightInPounds || ''}

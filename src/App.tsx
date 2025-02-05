@@ -22,16 +22,13 @@ type MeasurementType = "metric" | "us";
 
 const App = () => {
   const [changeMeasurement, setChangeMeasurement] = useState<MeasurementType>("metric");
-  const [showResult, setShowResult] = useState<boolean>(false)
-  const [result, setResult] = useState<string>('')
-
+  const [result, setResult] = useState<string | null>('')
   // Metric measurement state 
   const [metricMeasurement, setMetricMeasurement] = useState<Metric>({
     heightInCentimetres: 0,
     weightInKilos: 0,
     age: 0,
   });
-
   // US measurement state
   const [usMeasurement, setUsMeasurement] = useState<US>({
     heightInFeet: 0,
@@ -39,7 +36,6 @@ const App = () => {
     weightInPounds: 0,
     age: 0
   });
-
   const [gender, setGender] = useState<"male" | "female">("male");
 
   const handleChange = (measurementType: "metric" | "us") => {
@@ -58,17 +54,17 @@ const App = () => {
     } else {
       weight = usMeasurement.weightInPounds / 2.20462;
       height = (usMeasurement.heightInFeet ?? 0) * 30.48 + (usMeasurement.heightInInches ?? 0) * 2.54;
-      // Could also use "height = usMeasurement.heightInFeet! * 30.48 + usMeasurement.heightInInches! * 2.54;""
-      age = usMeasurement.age
+      // Could also use "height = usMeasurement.heightInFeet! * 30.48 + usMeasurement.heightInInches! * 2.54;"
+      age = usMeasurement.age;
     }
 
     if (weight === 0 || height === 0) {
-      
+      setResult(null)
     } else {
       const bmr = gender === "male"
       ? 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
       : 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-      setResult(bmr.toFixed(0) + ' Kcal per day');
+      setResult(bmr.toFixed(0));
     };
   };
 
@@ -81,7 +77,7 @@ const App = () => {
       if (measurementType === "metric") { 
         setMetricMeasurement((prev) => ({ ...prev, [name]: Number(value) }))
       } else {
-        setUsMeasurement((prev) => ({ ...prev, [name]: Number(value)}))
+        setUsMeasurement((prev) => ({ ...prev, [name]: Number(value) }))
       }
     }
   };  
@@ -154,8 +150,15 @@ const App = () => {
         </form>
         <div>
           <button onClick={calculate} className="btn" type="submit">Submit</button>
-          <p>{result}</p>
-          <button onClick={reload} className={`${result ? '' : 'hidden'}`} type="submit">Reload</button>
+          {result ? (
+            <>
+              <p className='text-black'>
+                <span className='text-green-500 font-bold mr-1'>{result}</span>
+                Kcal per day
+              </p>
+              <button onClick={reload} type="submit">Reload</button>
+            </>
+          ): null} 
         </div>
         <p className='mt-10 text-blue-600/100 opacity-70'>Using the Harris-Benedict BMR formula</p>
       </div>
